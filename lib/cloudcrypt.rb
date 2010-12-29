@@ -1,0 +1,10 @@
+require 'rubygems'
+require 'openssl'
+require 'fog'
+require 'zip/zipfilesystem'
+require 'cloudcrypt/parser'
+require 'cloudcrypt/main'
+require 'cloudcrypt/asymmetrical_crypt'
+require 'cloudcrypt/symmetrical_crypt'
+require 'cloudcrypt/s3_transfer'
+
