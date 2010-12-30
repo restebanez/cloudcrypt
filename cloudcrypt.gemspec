@@ -8,7 +8,7 @@ Gem::Specification.new do |s|
   s.platform    = Gem::Platform::RUBY
   s.authors     = ["Rodrigo Estebanez"]
   s.email       = ["restebanez@mdsol.com"]
-  s.homepage    = "https://github.com/restebanez/cloudcrypt"
+  s.homepage    = ""
   s.summary     = %q{encrypt and decrypt files using public and private encryption}
   s.description = %q{You can't encrypt a file bigger than the private key. You first have to generate a random key and a random vector initialization to encrypt the file using a symmetrical algorithom. Later you use the private key to encrypt the random key and the random vector}
 
