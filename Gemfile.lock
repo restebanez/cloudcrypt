@@ -1,14 +1,39 @@
 PATH
   remote: .
   specs:
-    cloudcrypt (0.0.1)
+    cloudcrypt (0.0.4)
+      fog
+      rubyzip
+      trollop
 
 GEM
   remote: http://rubygems.org/
   specs:
+    builder (2.1.2)
+    excon (0.3.6)
+    fog (0.3.34)
+      builder
+      excon (>= 0.3.6)
+      formatador (>= 0.0.16)
+      json
+      mime-types
+      net-ssh (>= 2.0.23)
+      nokogiri (>= 1.4.4)
+      ruby-hmac
+    formatador (0.0.16)
+    json (1.4.6)
+    mime-types (1.16)
+    net-ssh (2.0.23)
+    nokogiri (1.4.4)
+    ruby-hmac (0.4.0)
+    rubyzip (0.9.4)
+    trollop (1.16.2)
 
 PLATFORMS
   ruby
 
 DEPENDENCIES
   cloudcrypt!
+  fog
+  rubyzip
+  trollop

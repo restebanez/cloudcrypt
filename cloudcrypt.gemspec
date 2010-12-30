@@ -8,7 +8,7 @@ Gem::Specification.new do |s|
   s.platform    = Gem::Platform::RUBY
   s.authors     = ["Rodrigo Estebanez"]
   s.email       = ["restebanez@mdsol.com"]
-  s.homepage    = ""
+  s.homepage    = "https://github.com/restebanez/cloudcrypt"
   s.summary     = %q{encrypt and decrypt files using public and private encryption}
   s.description = %q{You can't encrypt a file bigger than the private key. You first have to generate a random key and a random vector initialization to encrypt the file using a symmetrical algorithom. Later you use the private key to encrypt the random key and the random vector}
 
@@ -18,6 +18,9 @@ Gem::Specification.new do |s|
   s.test_files    = `git ls-files -- {test,spec,features}/*`.split("\n")
   s.executables   = `git ls-files -- bin/*`.split("\n").map{ |f| File.basename(f) }
   s.require_paths = ["lib"]
+  s.executables = ["cloudcrypt.rb"]
+  s.default_executable = 'cloudcrypt.rb'
+  
   s.add_dependency('fog')
   s.add_dependency('rubyzip')
   s.add_dependency('trollop')  

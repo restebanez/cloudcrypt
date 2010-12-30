@@ -1,4 +1,4 @@
-require 'bundler'
+require 'bundler/setup'
 require 'date'
 
 Bundler::GemHelper.install_tasks
