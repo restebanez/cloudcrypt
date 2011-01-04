@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    cloudcrypt (0.0.5)
+    cloudcrypt (0.0.6)
       fog
       rubyzip
       trollop
