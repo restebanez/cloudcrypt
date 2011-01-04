@@ -1,0 +1,32 @@
+#!/usr/bin/env ruby
+# you can't use require 'cloudcrypt' 
+require File.expand_path(File.join(File.dirname(__FILE__), '..', 'lib', 'cloudcrypt'))
+
+RAVE_BUCKET='ec2admin-software-installation-rave-5.6.3'
+ENCRYPTED_FILE_EXTENSION='.encrypted'
+ENCRYPTED_VI_EXTENSION='.vi'
+ENCRYPTED_KEY_EXTENSION='.key'
+
+unless ARGV.empty?
+
+    
+    if Cloudcrypt::Main.is_mac?
+        # MAC
+        PUBLIC_KEY='/Users/restebanez/id_nodemanager.pub'
+        PRIVATE_KEY='/Users/restebanez/id_nodemanager'
+        TMP='/tmp'
+    else
+         PUBLIC_KEY='C:\Users\Administrator\.chef\id_nodemanager'
+         PRIVATE_KEY='C:\Users\Administrator\.chef\id_nodemanager'
+         TMP=ENV['TMP']
+    end
+
+    
+    
+    
+    
+    
+    cloudcrypt = Cloudcrypt::Parser.new
+    
+    cloudcrypt.parse
+end
