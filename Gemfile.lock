@@ -1,8 +1,9 @@
 PATH
   remote: .
   specs:
-    cloudcrypt (0.0.6)
-      fog
+    cloudcrypt (0.0.7)
+      excon (= 0.2.8)
+      fog (= 0.3.30)
       rubyzip
       trollop
 
@@ -10,19 +11,21 @@ GEM
   remote: http://rubygems.org/
   specs:
     builder (2.1.2)
-    excon (0.3.6)
-    fog (0.3.34)
+    excon (0.2.8)
+    fog (0.3.30)
       builder
-      excon (>= 0.3.6)
+      excon (>= 0.2.8)
       formatador (>= 0.0.16)
       json
       mime-types
+      named-parameters (>= 0.0.17)
       net-ssh (>= 2.0.23)
       nokogiri (>= 1.4.4)
       ruby-hmac
     formatador (0.0.16)
     json (1.4.6)
     mime-types (1.16)
+    named-parameters (0.0.17)
     net-ssh (2.0.23)
     nokogiri (1.4.4)
     ruby-hmac (0.4.0)
@@ -34,6 +37,7 @@ PLATFORMS
 
 DEPENDENCIES
   cloudcrypt!
-  fog
+  excon (= 0.2.8)
+  fog (= 0.3.30)
   rubyzip
   trollop

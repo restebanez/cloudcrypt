@@ -21,8 +21,8 @@ Gem::Specification.new do |s|
   s.require_paths = ["lib"]
 #  s.executables = ["cloudcrypt.rb"]
 #  s.default_executable = 'cloudcrypt.rb'
-  
-  s.add_dependency('fog')
+  s.add_dependency('excon','0.2.8')
+  s.add_dependency('fog','0.3.30')
   s.add_dependency('rubyzip')
   s.add_dependency('trollop')  
 end
