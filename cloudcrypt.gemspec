@@ -17,9 +17,10 @@ Gem::Specification.new do |s|
   s.files         = `git ls-files`.split("\n")
   s.test_files    = `git ls-files -- {test,spec,features}/*`.split("\n")
   s.executables   = `git ls-files -- bin/*`.split("\n").map{ |f| File.basename(f) }
+  s.default_executable = `git ls-files -- bin/*`.split("\n").map{ |f| File.basename(f) }
   s.require_paths = ["lib"]
-  s.executables = ["cloudcrypt.rb"]
-  s.default_executable = 'cloudcrypt.rb'
+#  s.executables = ["cloudcrypt.rb"]
+#  s.default_executable = 'cloudcrypt.rb'
   
   s.add_dependency('fog')
   s.add_dependency('rubyzip')

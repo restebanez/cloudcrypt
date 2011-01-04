@@ -2,7 +2,17 @@ module Cloudcrypt
     require 'trollop'
 
     class Parser
+        # Windows
 
+        HWND_BROADCAST = 0xffff
+        WM_SETTINGCHANGE = 0x001A
+        SMTO_ABORTIFHUNG = 2
+        abort('Please set the variable RAVE_RW_AWS_ACCESS_KEY_ID and RAVE_RW_AWS_SECRET_ACCESS_KEY') if ENV['RAVE_RW_AWS_ACCESS_KEY_ID'].nil? || ENV['RAVE_RW_AWS_SECRET_ACCESS_KEY'].nil?
+
+        AWS_ACCESS_KEY_ID=ENV['RAVE_RW_AWS_ACCESS_KEY_ID'].gsub(/\r?\n?/, "")
+        AWS_SECRET_ACCESS_KEY=ENV['RAVE_RW_AWS_SECRET_ACCESS_KEY'].gsub(/\r?\n?/, "")
+        
+        
     def initialize
         abort('use --help') if ARGV.empty?
          
@@ -22,6 +32,7 @@ module Cloudcrypt
          #   opt :destination, "where to write the file", :type => String
              opt :public_key, "public key location for encryption", :type => String, :default => PUBLIC_KEY 
              opt :private_key, "private key location for decryption", :type => String, :default => PRIVATE_KEY
+             opt :windows_setup, "Set windows variables"
              
          end
     end
@@ -30,8 +41,36 @@ module Cloudcrypt
     def parse
      
          Trollop::die :upload, "must exist" unless File.exists?(@opts[:upload]) if @opts[:upload]
+         if @opts[:windows_setup]
+             if Cloudcrypt::Main.is_windows?
+ 
+                  require 'win32/registry.rb'
+                  require 'Win32API'  
+                  if ENV['RAVE_RW_AWS_ACCESS_KEY_ID'].nil? || ENV['RAVE_RW_AWS_SECRET_ACCESS_KEY'].nil?
+                      puts "Let's set up some envioroment variables"
+                      puts "RAVE_RW_AWS_ACCESS_KEY_ID: "
+                      Win32::Registry::HKEY_CURRENT_USER.open('Environment', Win32::Registry::KEY_WRITE) do |reg|
+                        reg['RAVE_RW_AWS_ACCESS_KEY_ID'] = gets
+                      end
+                      puts "RAVE_RW_AWS_SECRET_ACCESS_KEY: "
+                      Win32::Registry::HKEY_CURRENT_USER.open('Environment', Win32::Registry::KEY_WRITE) do |reg|
+                        reg['RAVE_RW_AWS_SECRET_ACCESS_KEY'] = gets
+                      end
+                      # make environmental variables available immediately
+                      # http://stackoverflow.com/questions/190168/persisting-an-environment-variable-through-ruby
+                      sendmessagetimeout = Win32API.new('user32', 'SendMessageTimeout', 'LLLPLLP', 'L') 
+
+                      result = 0
+                      sendmessagetimeout.call(HWND_BROADCAST, WM_SETTINGCHANGE, 0, 'Environment', SMTO_ABORTIFHUNG, 5000, result)
+                      abort('Open a new powershell session and run it again')
+                  end
+             else
+                 abort('This option only applies to Windows OS')
+                 
+             end
+         end
          
-         
+
          m=Cloudcrypt::Main.new(@opts[:public_key],@opts[:private_key])
          s3=Cloudcrypt::S3Transfer.new(AWS_ACCESS_KEY_ID,AWS_SECRET_ACCESS_KEY)
          

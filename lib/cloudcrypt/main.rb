@@ -2,23 +2,27 @@ module Cloudcrypt
 
     class Main
     
-        
         ENCRYPTED_FILE_EXTENSION='.encrypted'
         ENCRYPTED_VI_EXTENSION='.vi'
         ENCRYPTED_KEY_EXTENSION='.key'
-             
+
+        
         if RUBY_PLATFORM.downcase.include?("mingw32") 
             TMP=ENV['TMP']
             FILE_SEPARATOR="\\" 
         else
             TMP='/tmp'
             FILE_SEPARATOR='/'
-        end    
+        end
+
         attr_reader :dst_encrypted_file, :dst_encrypted_key_file, :dst_encrypted_iv_file, :dst_unencrypted_file, :dst_zip_file
         
         def initialize(public_key_file,private_key_file=nil)
             @public_key_file = public_key_file
             @private_key_file = private_key_file
+            
+
+
         end
         
         def encrypt(file_path,dst=TMP)
@@ -100,6 +104,18 @@ module Cloudcrypt
         def md5(file)
             return false unless File.exists?(file)
             return Digest::MD5.hexdigest(File.read(file))
+        end
+        
+        def self.is_mac?
+          # universal-darwin9.0 shows up for RUBY_PLATFORM on os X leopard with the bundled ruby. 
+          # Installing ruby in different manners may give a different result, so beware.
+          # Examine the ruby platform yourself. If you see other values please comment
+          # in the snippet on dzone and I will add them.
+            RUBY_PLATFORM.downcase.include?("darwin")
+        end
+
+        def self.is_windows?
+            RUBY_PLATFORM.downcase.include?("mingw32")
         end
         
     private
