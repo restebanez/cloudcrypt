@@ -7,10 +7,9 @@ module Cloudcrypt
         HWND_BROADCAST = 0xffff
         WM_SETTINGCHANGE = 0x001A
         SMTO_ABORTIFHUNG = 2
-        abort('Please set the variable RAVE_RW_AWS_ACCESS_KEY_ID and RAVE_RW_AWS_SECRET_ACCESS_KEY') if ENV['RAVE_RW_AWS_ACCESS_KEY_ID'].nil? || ENV['RAVE_RW_AWS_SECRET_ACCESS_KEY'].nil?
 
-        AWS_ACCESS_KEY_ID=ENV['RAVE_RW_AWS_ACCESS_KEY_ID'].gsub(/\r?\n?/, "")
-        AWS_SECRET_ACCESS_KEY=ENV['RAVE_RW_AWS_SECRET_ACCESS_KEY'].gsub(/\r?\n?/, "")
+
+
         
         
     def initialize
@@ -70,9 +69,12 @@ module Cloudcrypt
              end
          end
          
-
+        abort('Please set the variable RAVE_RW_AWS_ACCESS_KEY_ID and RAVE_RW_AWS_SECRET_ACCESS_KEY') if ENV['RAVE_RW_AWS_ACCESS_KEY_ID'].nil? || ENV['RAVE_RW_AWS_SECRET_ACCESS_KEY'].nil?
+        aws_access_key_id=ENV['RAVE_RW_AWS_ACCESS_KEY_ID'].gsub(/\r?\n?/, "")
+        aws_secret_access_key=ENV['RAVE_RW_AWS_SECRET_ACCESS_KEY'].gsub(/\r?\n?/, "")
+        
          m=Cloudcrypt::Main.new(@opts[:public_key],@opts[:private_key])
-         s3=Cloudcrypt::S3Transfer.new(AWS_ACCESS_KEY_ID,AWS_SECRET_ACCESS_KEY)
+         s3=Cloudcrypt::S3Transfer.new(aws_access_key_id,aws_secret_access_key)
          
          
          if @opts[:list]
