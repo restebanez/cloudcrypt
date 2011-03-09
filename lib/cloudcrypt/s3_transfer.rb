@@ -31,7 +31,14 @@ module Cloudcrypt
         
         def download(file_basename,destination,bucket=RAVE_BUCKET)
             abort("S3://#{bucket}/#{file_basename} doesn't exist") unless file_exists?(file_basename,bucket)
-            File.open(destination,'wb') { |f| f << @s3.directories.get(bucket).files.get(file_basename).body }
+            # this produces a NoMemoryError: failed to allocate memory
+            #File.open(destination,'wb') { |f| f << @s3.directories.get(bucket).files.get(file_basename).body } 
+            
+            File.open(destination,'wb') do |file|
+                @s3.directories.get(bucket).files.get(file_basename) do |chunk|
+                    file << chunk
+                end
+            end
         end
         
         def list(bucket=RAVE_BUCKET)
